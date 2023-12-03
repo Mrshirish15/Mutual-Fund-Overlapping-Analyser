@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Suggestion-Tool</title>
+  <!-- Bootstrap CSS -->
+  <link rel="shortcut icon" href="/css/f1.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Include Chart.js library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* Custom styles */
+    .card {
+      margin-bottom: 20px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      transition: 0.3s;
+      border-radius: 5px;
+    }
+
+    .card:hover {
+      box-shadow: 0 8px 16px 0 rgba(39, 38, 38, 0.6);
+    }
+
+    .card-header {
+      background-color: #d6e7f2;
+      color: black;
+    }
+
+    .card-body ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .card-body li {
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .card-body li:last-child {
+      border-bottom: none;
+    }
+  </style>
+</head>
+<body>
+
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-md navbar-light bg-light">
+            <a class="navbar-brand" href="#">
+              <!-- <img src="logos.png" width="30" height="30"> -->
+              FundNinja
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="/home">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/compare-tool">Mutual Funds</a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="#">Portfolio Overlap</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+
+  <div class="container-fluid">
+    <!-- <div class="row"> -->
+
+      <!-- Heading card -->
+      <div class="col-md-12 mt-3">
+          <h2 class="text-center">Suggestion Tool</h2>
+      </div>
+
+      <!-- First list card -->
+      <div class="col-md-12 mt-3">
+        <div class="card">
+          <div class="card-header">
+            <h4>Sugested Scheme for <%=scheme2%></h4>
+          </div>
+          <div class="card-body">
+            <ul>
+              
+
+<!-- Iterate over each CommonMutualFund1 element -->
+<% for (var i = 0; i < CommonMutualFund1.length; i++) { %>
+  <li>
+    <div class="row">
+      <div class="col-4">
+        <h6><%= CommonMutualFund1[i].a %></h6>
+      </div>
+      <div class="col-6">
+        <div class="col-6">
+       
+            <!-- Create a canvas with a unique ID for each chart -->
+            <canvas id="chart-<%=i%>" width="50" height="50"></canvas>
+            <!-- Get the data for the chart from the b array -->
+            <% var chartData = CommonMutualFund1[i].b; %>
+            <% var chartLabels = chartData.map((d) => d[0]); %>
+            <% var chartValues = chartData.map((d) => d[1]); %>
+            <script>
+              console.log("label", <%- JSON.stringify(chartLabels) %>);
+              console.log("value", <%- JSON.stringify(chartValues) %>);
+              var ctx = document.getElementById('chart-<%=i%>').getContext('2d');
+              var myChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                  labels: <%- JSON.stringify(chartLabels) %>,
+                  datasets: [{
+                    data: <%- JSON.stringify(chartValues) %>,
+                    backgroundColor: [
+                      'rgba(255, 99, 132, 0.8)',
+                      'rgba(54, 162, 235, 0.8)',
+                      'rgba(255, 206, 86, 0.8)',
+                      'rgba(75, 192, 192, 0.8)',
+                      'rgba(153, 102, 255, 0.8)',
+                      'rgba(255, 159, 64, 0.8)',
+                      'rgba(255, 99, 132, 0.8)',
+                      'rgba(255, 206, 86, 0.8)',
+                      'rgba(75, 192, 192, 0.8)',
+                      'rgba(153, 102, 255, 0.8)',
+                      'rgba(255, 159, 64, 0.8)',
+                      'rgba(54, 162, 235, 0.8)',
+                      
+                    ]
+                  }]
+                }
+              });
+            </script>
+        </div>
+      </div>
+    </div>
+  </li>
+<% } %>
+
+
+            </ul>
+          </div>
+        </div>
+      </div>
+
+     
+  
+  </div>
+
+
+
+
+</body>
+</html>

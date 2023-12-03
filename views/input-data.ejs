@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Input-Data</title>
+
+    <!-- Add Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link rel="shortcut icon" href="/css/f1.png" type="image/x-icon">
+  </head>
+
+  <body>
+    <div class="container my-5">
+      <h1 class="text-center mb-4">Add Data</h1>
+
+      <div id="fieldContainer">
+        <!-- initial input fields -->
+        <div class="form-group">
+          <input
+            type="text"
+            name="field1"
+            id="field1"
+            class="form-control"
+            placeholder="Enter field 1"
+          />
+        </div>
+
+        <!-- Add Bootstrap form row and columns -->
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <input
+              type="text"
+              name="newField1"
+              id="newField1_1"
+              class="form-control"
+              placeholder="Enter field 1"
+            />
+          </div>
+          <div class="form-group col-md-4">
+            <input
+              type="number"
+              name="newField2"
+              id="newField2_1"
+              class="form-control"
+              placeholder="Enter field 2"
+            />
+          </div>
+          <div class="form-group col-md-4">
+            <input
+              type="text"
+              name="newField3"
+              id="newField3_1"
+              class="form-control"
+              placeholder="Enter field 3"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <button onclick="addFields()" class="btn btn-primary mb-3">
+          Add Fields
+        </button>
+        <button id="btn" class="btn btn-success mb-3">Submit</button>
+      </div>
+    </div>
+
+    <!-- Add Bootstrap JS and jQuery -->
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"
+      integrity="sha384-y29Fhmf1fH1O/4LTpU9mJxDKZ6UovYG1ecjgGlblUX8s/AW+YvfcFBKQVlccXo8a"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Add Bootstrap JS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-mYmBCBDEmQrKdIYZz7W8UbvZmJ7mb/GdCJoIMduizV8+zPh0HQqb7xPjR9Nl7D8K"
+      crossorigin="anonymous"
+    ></script>
+    <!-- js -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+
+        let pairs = [];
+        var fieldCount = 2; // initialize the field count
+
+        async function addFields(e) {
+
+            
+
+            
+            // // create new input fields
+            // var input1 = document.createElement("input");
+            // input1.type = "text";
+            // input1.name = "newField1";
+            // input1.id = "newField1_" + fieldCount; // set a unique ID
+            // input1.className = "form-control";
+
+            // var input2 = document.createElement("input");
+            // input2.type = "number";
+            // input2.name = "newField2";
+            // input2.id = "newField2_" + fieldCount; // set a unique ID
+            // input2.className = "form-control";
+
+            // var input3 = document.createElement("input");
+            // input3.type = "text";
+            // input3.name = "newField3";
+            // input3.id = "newField3_" + fieldCount; // set a unique ID
+            // input3.className = "form-control";
+
+
+            var input1 = document.createElement("input");
+                input1.type = "text";
+                input1.name = "newField1";
+                input1.id = "newField1_" + fieldCount; // set a unique ID
+                input1.classList.add("form-control");
+                input1.placeholder = `Enter field ${fieldCount}`;
+
+                var input2 = document.createElement("input");
+                input2.type = "number";
+                input2.name = "newField2";
+                input2.id = "newField2_" + fieldCount; // set a unique ID
+                input2.classList.add("form-control");
+                input2.placeholder = `Enter field ${fieldCount}`;
+
+                var input3 = document.createElement("input");
+                input3.type = "text";
+                input3.name = "newField3";
+                input3.id = "newField3_" + fieldCount; // set a unique ID
+                input3.classList.add("form-control");
+                input3.placeholder = `Enter field ${fieldCount}`;
+
+
+            // append new fields to the page
+            // var container = document.getElementById("fieldContainer");
+                var container = document.getElementById("fieldContainer");
+                var row = document.createElement("div");
+                row.classList.add("row");
+                var col1 = document.createElement("div");
+                col1.classList.add("col-sm-6");
+                var col2 = document.createElement("div");
+                col2.classList.add("col-sm-6");
+                var col3 = document.createElement("div");
+                col3.classList.add("col-sm-6");
+
+
+            container.appendChild(input1);
+            container.appendChild(input2);
+            container.appendChild(input3);
+            let br = document.createElement("br");
+            container.appendChild(br);
+
+
+            let count = fieldCount - 1;
+            
+            pushData(count);
+
+
+            fieldCount++;
+
+        }
+
+
+
+         function pushData(count) 
+         {
+
+                let Stocks = document.getElementById('newField1_' + count).value;
+                let Percentage = document.getElementById('newField2_' + count).value;
+                let Sector = document.getElementById('newField3_' + count).value;
+                pairs.push({ Stocks, Percentage, Sector });
+
+        }
+
+
+
+        //  console.log(fieldCount)
+
+        let btn = document.getElementById('btn');
+        btn.addEventListener('click', async (e) => {
+            e.preventDefault();
+
+            let MutualFund = document.getElementById('field1').value;
+            // let Stocks = document.getElementById(`newField1_${fieldCount}`).value;
+            // let Percentage = document.getElementById(`newField2_${fieldCount}`).value;
+
+            console.log(MutualFund);
+            console.log(pairs.length);
+
+            let Details = [];
+
+            for (let pair of pairs) {
+                // let key = pair[0];
+                // let value = pair[1];
+                console.log(`Key: ${pair.Stocks}, Value: ${pair.Percentage}`);
+                let first = pair.Stocks;
+                let second = pair.Percentage;
+                let third = pair.Sector;
+                Details.push({ first, second, third });
+            }
+
+
+            let resp = await axios.post('/post-data', { MutualFund, Details }).then(function (response) {
+                console.log(response);
+            })
+                .catch(function (error) {
+                    console.log(error);
+                });
+
+            console.log('response is ', resp);
+        })
+
+
+
+
+    </script>
+
+
+
+
+</body>
+
+</html>

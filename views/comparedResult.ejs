@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Portfolio Overlap Result</title>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="shortcut icon" href="/css/f1.png" type="image/x-icon">
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+      <a class="navbar-brand" href="#">
+        <!-- <img src="logo.png" width="30" height="30" /> -->
+        FundNinja
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/compare-tool">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/compare-tool">Mutual Funds</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Portfolio Overlap</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-3">
+      <h3 class="text-center">Portfolio Overlap</h3>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"><%=obj1%></h5>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"><%=obj2%></h5>
+            </div>
+          </div>
+        </div>
+      </div>
+
+       
+
+    <!-- canvas1 -->
+    <div class="container mt-5">
+      <h5 class="mt-2 justify-content-center">Overlapping</h5>
+      <div class="row justify-content-center">
+        <canvas id="myChart3" width="300" height="300" class="mt-2"></canvas>
+  </div>
+    </div>
+
+    
+
+      <!-- Comparison part -->
+
+      <div class="container mt-5 bg-light">
+        <div class="row">
+          <div class="col-md-4 col-lg-4 mb-4 mt-2 offset-lg-2">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title">Common Stocks</h5>
+                <p class="card-text"><%=a%></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-lg-4 mb-4 mt-2">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title">Overlapping %</h5>
+                <p class="card-text"><%=percent%></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3 col-lg-4 mb-4 offset-lg-2">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title">Total Stocks In <%=obj1%></h5>
+                <p class="card-text"><%=b%></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 col-lg-4 mb-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title">Total Stocks In <%=obj2%></h5>
+                <p class="card-text"><%=c%></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+       <!-- canvas4 -->
+       <div class="container mt-5 align-items-center">
+        <div class="row">
+          <div class="col-12 text-center">
+            <h4>Overlapping Stocks From Both Schemes</h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 d-flex justify-content-center">
+            <canvas id="myChart4" width="500" height="500 class="class="mx-auto""></canvas>
+          </div>
+    </div>
+       </div>
+
+     <!-- canvas2 -->
+     <div class="container mt-5 bg-light">
+      <div class="row">
+        <div class="col-4 offset-lg-2">
+          <h5>Sectors Of Investment In <%=obj1%></h5>
+          <canvas id="myChart1" width="300" height="300"></canvas>
+        </div>
+        <div class="col-6">
+          <h5>Sectors Of Investment In <%=obj2%></h5>
+          <canvas id="myChart2" width="300" height="300"></canvas>
+        </div>
+  </div>
+     </div>
+
+     
+
+
+     
+
+       <!-- suggestion button -->
+     
+       <div class="container mt-5 mb-4">
+        <div class="row">
+          <a class="btn btn-primary mx-auto" href="/suggetion" role="button">Suggestion</a>
+        </div>
+        
+       </div>
+  
+
+    <!-- charts.js -->
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      const pairsArray = <%- JSON.stringify(sorted1) %>;
+    
+      const labels = Object.keys(pairsArray);
+      const values = Object.values(pairsArray);
+    
+      const colors = values.map((value, index) => {
+        return `rgba(100, ${index * 90}, 0, 0.6)`;
+      });
+      
+    
+      console.log(colors);
+    
+      console.log(labels, values);
+    
+      const chartData = {
+        labels: labels,
+        datasets: [{
+          data: values,
+          backgroundColor: colors
+        }]
+      };
+    
+      const chartOptions = {
+        responsive: false,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'bottom'
+          }
+        }
+      };
+    
+      const pairsArray2 = <%- JSON.stringify(sorted2) %>;
+    
+      const labels2 = Object.keys(pairsArray2);
+      const values2 = Object.values(pairsArray2);
+    
+      const colors2 = values2.map((value, index) => {
+        return `rgba(1500, ${index * 90}, 0, 0.6)`;
+      });
+    
+      console.log(colors2);
+    
+      console.log(labels2, values2);
+    
+      const chartData2 = {
+        labels: labels2,
+        datasets: [{
+          data: values2,
+          backgroundColor: colors2
+        }]
+      };
+    
+      const chartOptions2 = {
+        responsive: false,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'bottom'
+          }
+        }
+      };
+    
+     const Overlapping = <%- JSON.stringify(percent) %>;
+     const NonOverlapping = 100-Overlapping;
+
+     const pairsArray3 = {
+      Overlapping:Overlapping,
+      NoOverlapping:NonOverlapping
+    };
+
+     const labels3 = Object.keys(pairsArray3);
+      const values3 = Object.values(pairsArray3);
+
+     const chartData3 = {
+        labels: labels3,
+        datasets: [{
+          data: values3,
+          backgroundColor: [
+          'rgba(255, 99, 132, 0.8)',
+          'rgba(255, 159, 64, 0.8)',
+        ]
+        }]
+      };
+    
+      const chartOptions3 = {
+        responsive: false,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'bottom'
+          }
+        }
+      };
+
+
+      const sectors = <%- JSON.stringify(intersection) %>;
+      const labels4 = sectors.map(item => item.name);
+      const values4_1 = sectors.map(item => item.value1);
+      const values4_2 = sectors.map(item => item.value2);
+
+      console.log(labels4);
+      console.log(values4_1);
+      console.log(values4_2);
+
+      const chartData4 = {
+        labels: labels4,
+        datasets: [{
+          label: `<%- JSON.stringify(obj1) %>`,
+          data: values4_1,
+          backgroundColor: 'rgba(153, 102, 255, 0.8)',
+          borderWidth: 0
+        },
+
+        {
+          label: `<%- JSON.stringify(obj2) %>`,
+          data: values4_2,
+          backgroundColor: 'rgba(75, 192, 192, 0.8)'
+        }
+
+      ]
+      };
+    
+      const chartOptions4 = {
+        responsive: false,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'bottom'
+          },
+          yAxes: [{
+        gridLines: {
+          display: false
+        }
+      }]
+        }
+      };
+
+  
+
+
+      window.onload = function () {
+        const myChart1 = new Chart(document.getElementById('myChart1'), {
+          type: 'doughnut',
+          data: chartData,
+          options: chartOptions
+        });
+    
+        const myChart2 = new Chart(document.getElementById('myChart2'), {
+          type: 'doughnut',
+          data: chartData2,
+          options: chartOptions2
+        });
+
+        const myChart3 = new Chart(document.getElementById('myChart3'), {
+          type: 'doughnut',
+          data: chartData3,
+          options: chartOptions3
+        });
+
+
+        const myChart4 = new Chart(document.getElementById('myChart4'), {
+          type: 'bar',
+          data: chartData4,
+          options: chartOptions4
+        });
+
+      };
+    </script>
+    
+  </body>
+</html>

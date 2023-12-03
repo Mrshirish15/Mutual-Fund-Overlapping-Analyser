@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Compare-Tool</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/css/f1.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  </head>
+  <body>
+
+
+     <!-- Navbar -->
+     <nav class="navbar navbar-expand-md navbar-light bg-light">
+      <a class="navbar-brand" href="#">
+        <!-- <img src="logos.png" width="30" height="30"> -->
+        FundNinja
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/compare-tool">Mutual Funds</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Portfolio Overlap</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+
+
+    <div class="container-fluid">
+      <div class="row mt-5">
+        <!-- Left column -->
+        <div class="col-md-6">
+          <ol class="list-group list-group-numbered">
+            <% data.forEach(mutual=>{%>
+            
+            <li class="list-group-item list-group-item-action d-flex justify-content-around align-items-start">
+              <div class="ms-2 me-auto">
+                <h6><a href="/portfolio/<%=mutual._id%>" class=" fw-bolder text-decoration-none text-capitalize p-7"><%= mutual.MutualFund%></a></h6>
+              </div>
+            </li>
+            <%})%>
+          </ol>
+         
+       </div>
+        <!-- Right column -->
+        <div class="col-md-4">
+          <form method="post" action="/result">
+            <div class="form-group">
+              <label for="field1">Field 1:</label>
+              <input type="text" class="form-control" id="field1" name="first">
+            </div>
+            <div class="form-group">
+              <label for="field2">Field 2:</label>
+              <input type="text" class="form-control" id="field2" name="second">
+            </div>
+            <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+  </body>
+</html>
